@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Hangman Game using Vanilla JS</title>
+</head>
+
+<body>
+    <section class="hangman">
+        <div class="hangman__overlay">
+            <p class="hangman__game-info">Start new Hangman Game</p>
+            <button class="btn btn--active">START</button>
+        </div>
+        <div class="wrapper">
+            <div class="hangman__bar">
+            </div>
+            <div data-body="hangman-body" class="hangman__head js-hidden">
+                <img class="hangman__head-img" src="img/head.png" alt="Head of Hangman"/>
+            </div>
+            <div data-body="hangman-body" class="hangman__neck js-hidden">
+            </div>
+            <div data-body="hangman-body" class="hangman__corpus js-hidden">
+            </div>
+            <div data-body="hangman-body" class="hangman__right-arm js-hidden">
+            </div>
+            <div data-body="hangman-body" class="hangman__left-arm js-hidden">
+            </div>
+            <div data-body="hangman-body" class="hangman__right-hand js-hidden">
+            </div>
+            <div  data-body="hangman-body" class="hangman__left-hand js-hidden">
+
+            </div>
+            <div data-body="hangman-body" class="hangman__right-leg js-hidden">
+            </div>
+            <div data-body="hangman-body" class="hangman__left-leg js-hidden">
+            </div>
+            <div data-body="hangman-body" class="hangman__right-foot js-hidden">
+            </div>
+            <div data-body="hangman-body" class="hangman__left-foot js-hidden">
+            </div>
+        </div>
+        <div class="triangle"></div>
+        <div class="missed-container js-hidden">
+            <p class="missed-container__info">You missed:</p>
+            <div class="missed-container__letters"></div>
+        </div>
+        <div class="letters">
+            <ul class="letters-list">
+                <li data-disabled="disabled" class="letters-list__word">
+                    <input class="letters-list__letter letters-list__letter--disabled" disabled type="text">
+                </li>
+                <li data-disabled="disabled" class="letters-list__word">
+                    <input class="letters-list__letter letters-list__letter--disabled" disabled type="text">
+                </li>
+                <li data-disabled="disabled" class="letters-list__word">
+                    <input class="letters-list__letter letters-list__letter--disabled" disabled type="text">
+                </li>
+                <li data-disabled="disabled" class="letters-list__word">
+                    <input class="letters-list__letter letters-list__letter--disabled" disabled type="text">
+                </li>
+            </ul>
+        </div>
+    </section>
+    <script src="js/hangman.js"></script>
+    </script>
+</body>
+
+</html>
