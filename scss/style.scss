@@ -1,0 +1,335 @@
+// Converted Variables
+$primary-color: #333;
+$secondary-color: #3A4061;
+$box-color: #F5F5F5;
+$hangman-body-color: #fece8a;
+$hangman-shirt-color-primary: #8AC657;
+$hangman-shirt-color-secondary: #4EA06A;
+$hangman-corpus-color: #3C5A92;
+
+@font-face {
+    font-family: "AllerDisplay";
+    src: url("/fonts/AllerDisplay.ttf") format("ttf"),
+}
+
+@mixin displayFlex($direction, $align, $justify) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align;
+    justify-content: $justify;
+}
+
+@mixin createTriangle() {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 25vw 25vw;
+    border-color: transparent transparent #4D69FA transparent;
+}
+
+@mixin hangmanBody($background, $transform, $top_pos, $left_pos) {
+    position: absolute;
+    background-color: $background;
+    top: $top_pos;
+    left: $left_pos;
+    transform: translateX($transform);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: $primary-color;
+    background: $secondary-color;
+    @include displayFlex(row, center, center);
+    min-height: 100vh;
+    font-family: AllerDisplay, Arial;
+}
+
+.js-hidden {
+    opacity: 0;
+}
+
+.triangle {
+    bottom: 0;
+    right: 0;
+    @include createTriangle();
+}
+
+.hangman__game-info,
+.btn {
+    transform: translateX(0);
+    transition: 0.5s ease-out;
+}
+
+.hangman__game-info.fade-out,
+.btn.fade-out {
+    transform: translateX(-200%);
+    opacity: 0;
+}
+
+.hangman {
+    position: relative;
+    width: 80vw;
+    height: 80vh;
+    background-color: $box-color;
+    overflow: hidden;
+
+    &__overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(59, 65, 99, 0.65);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+
+        &.js-overlay {
+            display: none;
+        }
+    }
+
+    &__game-info {
+        font-size: 4rem;
+        text-transform: uppercase;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    &__bar {
+        position: relative;
+        left: 0;
+        top: 15%;
+        width: 250px;
+        height: 25px;
+        background-color: #53555D;
+        border-radius: 0 20px 20px 0;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 15%;
+            width: 15px;
+            height: 70px;
+            background-color: inherit;
+            border-radius: 0 0 20px 20px;
+            transform: translateX(-50%);
+        }
+    }
+
+    &__head {
+        @include hangmanBody($background: null, $transform: -50%, $top_pos: 130px, $left_pos: 125px);
+        z-index: 1;
+
+        &-img {
+            width: 120px;
+            height: 120px;
+        }
+    }
+
+    &__neck {
+        @include hangmanBody($background: $hangman-body-color, $transform: -50%, $top_pos: 228px, $left_pos: 125px);
+        width: 30px;
+        height: 37px;
+        border-radius: 2px 5px 5px 5px;
+    }
+
+    &__corpus {
+        @include hangmanBody($background: $hangman-corpus-color, $transform: -50%, $top_pos: 260px, $left_pos: 125px);
+        width: 80px;
+        height: 95px;
+
+        &::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 70px;
+            left: 0%;
+            top: 0%;
+            position: absolute;
+            background-color: #8AC657;
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 70px;
+            position: absolute;
+            background-color: #4EA06A;
+            left: 50%;
+        }
+    }
+
+    &__right-arm {
+        @include hangmanBody($background: $hangman-shirt-color-secondary, $transform: -50%,
+            $top_pos: 291px, $left_pos: 141px);
+        width: 100px;
+        height: 25px;
+        border-radius: 2px 0 2px 2px;
+        transform: rotate(45deg);
+        z-index: 1;
+    }
+
+    &__left-arm {
+        @include hangmanBody($background: $hangman-shirt-color-primary, $transform: -50%,
+            $top_pos: 291px, $left_pos: 7px);
+        width: 100px;
+        height: 25px;
+        border-radius: 2px 0 2px 2px;
+        transform: rotate(-45deg);
+        z-index: 1;
+    }
+
+    &__right-hand {
+        @include hangmanBody($background: $hangman-body-color, $transform: null,
+            $top_pos: 330px, $left_pos: 217px);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+
+    &__left-hand {
+        @include hangmanBody($background: $hangman-body-color, $transform: null,
+            $top_pos: 330px, $left_pos: 10px);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+
+    &__right-leg {
+        @include hangmanBody($background: $hangman-corpus-color, $transform: null,
+            $top_pos: 390px, $left_pos: 86px);
+        width: 150px;
+        height: 30px;
+        border-radius: 5px;
+        transform: rotate(81deg);
+        z-index: 1;
+    }
+
+    &__left-leg {
+        @include hangmanBody($background: $hangman-corpus-color, $transform: null,
+            $top_pos: 390px, $left_pos: 13px);
+        width: 150px;
+        height: 30px;
+        border-radius: 10px;
+        transform: rotate(-81deg);
+        z-index: 1;
+    }
+
+    &__right-foot {
+        @include hangmanBody($background: $hangman-corpus-color, $transform: null,
+        $top_pos: 475px, $left_pos: 156px);
+        background-color: #FECE8A;
+        width: 47px;
+        height: 19px;
+        border-radius: 5px;
+    }
+
+    &__left-foot {
+        @include hangmanBody($background: $hangman-corpus-color, $transform: null,
+        $top_pos: 475px, $left_pos: 40px);
+        background-color: #FECE8A;
+        width: 47px;
+        height: 19px;
+        border-radius: 5px;
+    }
+}
+
+.btn {
+    padding: 20px 60px;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color, background-color 0.3s;
+
+    &--active {
+        color: #FFBA00;
+        border: 4px dotted #FFBA00;
+        border-radius: 25px;
+        background-color: transparent;
+        margin-top: 25px;
+    }
+
+    &--active:hover,
+    &--active:focus {
+        color: #fff;
+        background-color: #FFBA00;
+    }
+}
+
+.wrapper {
+    width: 24%;
+    height: 80%;
+    position: absolute;
+}
+
+.missed-container {
+    width: 30%;
+    position: relative;
+    left: 50%;
+    top: 2%;
+    display: flex;
+    flex-wrap: wrap;
+
+    &__info {
+        text-transform: uppercase;
+        width: 70%;
+        margin-top: (66.2 / 2) + px;
+        color: #53555D;
+        font: {
+            size: 1.5em;
+            weight: bold;
+        }
+    }
+
+    &__letters {
+        color: #4d69fa;
+        position: absolute;
+        top: 70px;
+        font: {
+            size: 3em;
+            weight: bold;
+        }
+    }
+
+}
+
+.letters {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    &-list {
+        list-style: none;
+        display: flex;
+
+        &__letter {
+            width: 62.5px;
+            height: 70px;
+            border: 0;
+            margin: 5px 5px;
+            border-radius: 5px;
+            background-color: rgba(83, 85, 93, 0.98);
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 2.375em;
+
+            &--disabled {
+                font-size: 40px;
+                background-color: rgba(80, 82, 90, 0.30);
+            }
+        }
+
+    }
+}
