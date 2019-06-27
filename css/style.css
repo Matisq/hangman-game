@@ -1,0 +1,339 @@
+@font-face {
+  font-family: "AllerDisplay";
+  src: url("/fonts/AllerDisplay.ttf") format("ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: #333;
+  background: #3A4061;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: AllerDisplay, Arial;
+}
+
+.js-hidden {
+  opacity: 0;
+}
+
+.triangle {
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 25vw 25vw;
+  border-color: transparent transparent #4D69FA transparent;
+}
+
+.hangman__game-info,
+.btn {
+  transform: translateX(0);
+  transition: 0.5s ease-out;
+}
+
+.hangman__game-info.fade-out,
+.btn.fade-out {
+  transform: translateX(-200%);
+  opacity: 0;
+}
+
+.hangman {
+  position: relative;
+  width: 80vw;
+  height: 80vh;
+  background-color: #F5F5F5;
+  overflow: hidden;
+}
+
+.hangman__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(59, 65, 99, 0.65);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+
+.hangman__overlay.js-overlay {
+  display: none;
+}
+
+.hangman__game-info {
+  font-size: 4rem;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: bold;
+}
+
+.hangman__bar {
+  position: relative;
+  left: 0;
+  top: 15%;
+  width: 250px;
+  height: 25px;
+  background-color: #53555D;
+  border-radius: 0 20px 20px 0;
+}
+
+.hangman__bar::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  width: 15px;
+  height: 70px;
+  background-color: inherit;
+  border-radius: 0 0 20px 20px;
+  transform: translateX(-50%);
+}
+
+.hangman__head {
+  position: absolute;
+  top: 130px;
+  left: 125px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.hangman__head-img {
+  width: 120px;
+  height: 120px;
+}
+
+.hangman__neck {
+  position: absolute;
+  background-color: #fece8a;
+  top: 228px;
+  left: 125px;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 37px;
+  border-radius: 2px 5px 5px 5px;
+}
+
+.hangman__corpus {
+  position: absolute;
+  background-color: #3C5A92;
+  top: 260px;
+  left: 125px;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 95px;
+}
+
+.hangman__corpus::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 70px;
+  left: 0%;
+  top: 0%;
+  position: absolute;
+  background-color: #8AC657;
+}
+
+.hangman__corpus::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 70px;
+  position: absolute;
+  background-color: #4EA06A;
+  left: 50%;
+}
+
+.hangman__right-arm {
+  position: absolute;
+  background-color: #4EA06A;
+  top: 291px;
+  left: 141px;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 25px;
+  border-radius: 2px 0 2px 2px;
+  transform: rotate(45deg);
+  z-index: 1;
+}
+
+.hangman__left-arm {
+  position: absolute;
+  background-color: #8AC657;
+  top: 291px;
+  left: 7px;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 25px;
+  border-radius: 2px 0 2px 2px;
+  transform: rotate(-45deg);
+  z-index: 1;
+}
+
+.hangman__right-hand {
+  position: absolute;
+  background-color: #fece8a;
+  top: 330px;
+  left: 217px;
+  transform: translateX();
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.hangman__left-hand {
+  position: absolute;
+  background-color: #fece8a;
+  top: 330px;
+  left: 10px;
+  transform: translateX();
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.hangman__right-leg {
+  position: absolute;
+  background-color: #3C5A92;
+  top: 390px;
+  left: 86px;
+  transform: translateX();
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+  transform: rotate(81deg);
+  z-index: 1;
+}
+
+.hangman__left-leg {
+  position: absolute;
+  background-color: #3C5A92;
+  top: 390px;
+  left: 13px;
+  transform: translateX();
+  width: 150px;
+  height: 30px;
+  border-radius: 10px;
+  transform: rotate(-81deg);
+  z-index: 1;
+}
+
+.hangman__right-foot {
+  position: absolute;
+  background-color: #3C5A92;
+  top: 475px;
+  left: 156px;
+  transform: translateX();
+  background-color: #FECE8A;
+  width: 47px;
+  height: 19px;
+  border-radius: 5px;
+}
+
+.hangman__left-foot {
+  position: absolute;
+  background-color: #3C5A92;
+  top: 475px;
+  left: 40px;
+  transform: translateX();
+  background-color: #FECE8A;
+  width: 47px;
+  height: 19px;
+  border-radius: 5px;
+}
+
+.btn {
+  padding: 20px 60px;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color, background-color 0.3s;
+}
+
+.btn--active {
+  color: #FFBA00;
+  border: 4px dotted #FFBA00;
+  border-radius: 25px;
+  background-color: transparent;
+  margin-top: 25px;
+}
+
+.btn--active:hover,
+.btn--active:focus {
+  color: #fff;
+  background-color: #FFBA00;
+}
+
+.wrapper {
+  width: 24%;
+  height: 80%;
+  position: absolute;
+}
+
+.missed-container {
+  width: 30%;
+  position: relative;
+  left: 50%;
+  top: 2%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.missed-container__info {
+  text-transform: uppercase;
+  width: 70%;
+  margin-top: 33.1px;
+  color: #53555D;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.missed-container__letters {
+  color: #4d69fa;
+  position: absolute;
+  top: 70px;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.letters {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.letters-list {
+  list-style: none;
+  display: flex;
+}
+
+.letters-list__letter {
+  width: 62.5px;
+  height: 70px;
+  border: 0;
+  margin: 5px 5px;
+  border-radius: 5px;
+  background-color: rgba(83, 85, 93, 0.98);
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 2.375em;
+}
+
+.letters-list__letter--disabled {
+  font-size: 40px;
+  background-color: rgba(80, 82, 90, 0.3);
+}
